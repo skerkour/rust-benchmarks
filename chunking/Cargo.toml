@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 fastcdc = "3"
+quickcdc = { git = "https://github.com/jrobhoward/quickcdc" }
 
 
 [dev-dependencies]

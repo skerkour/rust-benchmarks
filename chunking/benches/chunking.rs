@@ -35,6 +35,19 @@ fn bench(c: &mut Criterion) {
                 }
             });
         });
+
+        group.bench_with_input(BenchmarkId::new("quick_cdc", size), &size, |b, i| {
+            let mut data = black_box(vec![0u8; *i]);
+            rand_generator.fill_bytes(&mut data);
+            let salt = 15222894464462204665;
+
+            b.iter(|| {
+                let chunker = quickcdc::Chunker::with_params(&data, 64, 128, salt).expect("building chunker");
+                for chunk in chunker {
+                    _ = chunk
+                }
+            });
+        });
     }
     group.finish();
 }
