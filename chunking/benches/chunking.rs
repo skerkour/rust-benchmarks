@@ -7,12 +7,12 @@ fn bench(c: &mut Criterion) {
     let min_size = average_size / 4;
     let max_size = average_size * 4;
 
-    let mut group = c.benchmark_group("fast_cdc");
+    let mut group = c.benchmark_group("chunking");
 
     for size in [64_000, 1_000_000, 100_000_000] {
         group.throughput(Throughput::Bytes(size as u64));
 
-        group.bench_with_input(BenchmarkId::new("v2016", size), &size, |b, i| {
+        group.bench_with_input(BenchmarkId::new("fast_cdc_v2016", size), &size, |b, i| {
             let mut data = black_box(vec![0u8; *i]);
             rand_generator.fill_bytes(&mut data);
 
@@ -24,7 +24,7 @@ fn bench(c: &mut Criterion) {
             });
         });
 
-        group.bench_with_input(BenchmarkId::new("v2020", size), &size, |b, i| {
+        group.bench_with_input(BenchmarkId::new("fast_cdc_v2020", size), &size, |b, i| {
             let mut data = black_box(vec![0u8; *i]);
             rand_generator.fill_bytes(&mut data);
 
