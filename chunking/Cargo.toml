@@ -14,5 +14,16 @@ criterion = "0.4"
 rand = "0.8"
 
 [[bench]]
-name = "crypto"
+name = "chunking"
 harness = false
+
+
+[profile.bench]
+opt-level = 3
+codegen-units = 1
+debug = false
+debug-assertions = false
+lto = true
+rpath = false
+#panic = "abort" This is ignored for bench profile
+incremental = false
